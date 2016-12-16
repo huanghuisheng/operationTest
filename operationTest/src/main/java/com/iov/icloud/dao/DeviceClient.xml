@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iov.icloud.entity.DeviceClient">
+	<resultMap type="DeviceClient" id="BaseResultMap">
+		<result property="id" column="n_id" />
+		<result property="clientName" column="c_client_name" />
+		<result property="imei" column="c_imei" />
+		<result property="group" column="c_group" />
+		<result property="carNumber" column="c_car_number" />
+		<result property="remark" column="c_remark" />
+		<result property="region" column="c_region" />
+	</resultMap>
+	
+<!--     public static final String DEFAULT_SELECT = "defaultSelect";
+	public static final String DEFAULT_SELECTONE = "defaultSelectOne";
+	public static final String DEFAULT_MAPKEY = "id";
+	public static final String DEFAULT_INSERT = "defaultinsert";
+	public static final String DEFAULT_DELETE = "delete";
+	public static final String DEFAULT_UPDATE = "update"; -->
+	<sql id="Base_Column_List">
+		n_id, c_client_name, c_imei, c_group, c_car_number,c_remark,c_region
+	</sql>
+  <select id="defaultSelectOne" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from iov_device_client
+    where c_id = #{id}
+  </select>
+  <select id="defaultSelect" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from iov_device_client
+  </select>
+
+  <insert id="defaultinsert" parameterType="com.iov.icloud.entity.DeviceClient" >
+    insert into tb_user (n_id, c_client_name, c_imei, 
+      c_group, c_car_number,c_remark,c_region)
+    values (#{id}, #{clientName}, #{imei}, 
+      #{group}, #{carNumber}, #{remark}, #{region}
+      )
+  </insert>
+  <update id="update" parameterType="com.iov.icloud.entity.DeviceClient" >
+    update iov_device_client
+    <set >
+      <if test="clientName != null" >
+        c_client_name = #{clientName},
+      </if>
+      <if test="imei != null" >
+        c_imei = #{imei},
+      </if>
+       <if test="group != null" >
+        c_group = #{group},
+      </if>
+       <if test="carNumber != null" >
+        c_car_number = #{carNumber},
+      </if>
+       <if test="remark != null" >
+        c_remark = #{remark},
+      </if>
+       <if test="region != null" >
+        c_region = #{region},
+      </if>
+    </set>
+    where n_id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from iov_device_client
+    where n_id = #{id}
+  </delete>
+
+
+
+
+
+
+
+
+</mapper>
